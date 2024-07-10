@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signupButton">
+
+    <TextView
+        android:id="@+id/signup_heading"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_40sdp"
+        android:text="Sign Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:drawableStart="@drawable/person_logo"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:background="@drawable/custom_border"
+        android:layout_below="@+id/signup_heading"
+        android:id="@+id/signup_name"
+        style="@style/edit_20"
+        android:hint="Enter your name" />
+
+    <EditText
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:drawableStart="@drawable/email_logo"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:background="@drawable/custom_border"
+        android:layout_below="@+id/signup_name"
+        android:id="@+id/signup_email"
+        style="@style/edit_20"
+        android:hint="Enter your email" />
+
+    <EditText
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:drawableStart="@drawable/phone_logo"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:background="@drawable/custom_border"
+        android:layout_below="@+id/signup_email"
+        android:id="@+id/signup_contactno"
+        style="@style/edit_20"
+        android:hint="Enter your contact no." />
+
+    <FrameLayout
+        android:id="@+id/signup_frame_layout_password"
+        android:layout_below="@+id/signup_contactno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/password_logo"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:background="@drawable/custom_border"
+            android:layout_below="@+id/signup_contactno"
+            android:id="@+id/signup_password"
+            style="@style/edit_20"
+            android:hint="Enter your password" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/signup_password_show"
+            android:layout_gravity="end|center"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:src="@drawable/show" />
+
+        <ImageView
+            android:id="@+id/signup_password_hide"
+            android:layout_gravity="end|center"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:src="@drawable/hide" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/signup_frame_layout_confirm_password"
+        android:layout_below="@+id/signup_frame_layout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/password_logo"
+            android:layout_marginTop="@dimen/_11sdp"
+            android:background="@drawable/custom_border"
+            android:layout_below="@+id/signup_password"
+            android:id="@+id/signup_confirm_password"
+            style="@style/edit_20"
+            android:hint="Confirm Password" />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/signup_confirm_password_show"
+            android:layout_gravity="end|center"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:src="@drawable/show" />
+
+        <ImageView
+            android:id="@+id/signup_confirm_password_hide"
+            android:layout_gravity="end|center"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:src="@drawable/hide" />
+
+    </FrameLayout>
+
+    <Button
+        android:layout_marginHorizontal="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_90sdp"
+        android:layout_below="@+id/signup_frame_layout_confirm_password"
+        android:id="@+id/signup_button"
+        android:textSize="@dimen/_20sdp"
+        android:text="Sign Up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
