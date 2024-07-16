@@ -1,23 +1,27 @@
 package com.example.loginpage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class signupButton extends AppCompatActivity {
 
     ImageView signup_show,signup_hide;
     ImageView signup_confirm_show,signup_confirm_hide;
+    RadioGroup gender;
+    CheckBox termscheckbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,9 @@ public class signupButton extends AppCompatActivity {
         EditText password = findViewById(R.id.signup_password);
         EditText confirm_password = findViewById(R.id.signup_confirm_password);
         Button signup = findViewById(R.id.signup_button);
+
+        gender = findViewById(R.id.signup_radio_group);
+        termscheckbox = findViewById(R.id.signup_checkbox);
 
         signup_show = findViewById(R.id.signup_password_show);
         signup_hide = findViewById(R.id.signup_password_hide);
@@ -71,6 +78,13 @@ public class signupButton extends AppCompatActivity {
                 confirm_password.setTransformationMethod(new PasswordTransformationMethod());
             }
         });
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton selectedGender = findViewById(i);
+                Toast.makeText(signupButton.this, selectedGender.getText(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +109,10 @@ public class signupButton extends AppCompatActivity {
                     confirm_password.setError("Confirm Password Required!");
                 } else if (!password.getText().toString().trim().equals(confirm_password.getText().toString())) {
                     confirm_password.setError("The password is not same");
+                } else if (gender.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(signupButton.this, "Gender is Required", Toast.LENGTH_LONG).show();
+                } else if (!termscheckbox.isChecked()) {
+                    Toast.makeText(signupButton.this, "Terms & Conditions are required", Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(signupButton.this, MainActivity.class);
                     startActivity(intent);

@@ -1,101 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <ImageView
-            android:layout_marginTop="@dimen/_40sdp"
-            android:src="@drawable/login"
-            android:id="@+id/main_image"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_below="@+id/main_image"
-            android:drawablePadding="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textColor="@color/blue"
-            android:id="@+id/main_heading"
-            android:layout_centerHorizontal="true"
-            android:text="Login"
-            android:textSize="@dimen/_40sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginTop="@dimen/_40sdp"
+                android:src="@drawable/login"
+                android:id="@+id/main_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp" />
 
-
-        <EditText
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:id="@+id/main_email"
-            style="@style/edit_20"
-            android:layout_below="@+id/main_heading"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/custom_border"
-            android:drawableStart="@drawable/email_logo"
-            android:hint="Enter your email" />
-
-        <FrameLayout
-            android:layout_below="@id/main_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            <TextView
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textColor="@color/blue"
+                android:id="@+id/main_heading"
+                android:text="Login"
+                android:textSize="@dimen/_40sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:background="@drawable/custom_border"
+                android:id="@+id/main_email"
                 style="@style/edit_20"
-                android:drawableStart="@drawable/password_logo"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/main_password"
-                android:hint="Enter your password" />
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/custom_border"
+                android:drawableStart="@drawable/email_logo"
+                android:hint="Enter your email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <ImageView
-                android:visibility="gone"
-                android:id="@+id/password_show"
-                android:layout_gravity="end|center"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_30sdp"
-                android:src="@drawable/show" />
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/password_hide"
-                android:layout_gravity="end|center"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_30sdp"
-                android:src="@drawable/hide" />
+                <EditText
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:background="@drawable/custom_border"
+                    style="@style/edit_20"
+                    android:drawableStart="@drawable/password_logo"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/main_password"
+                    android:hint="Enter your password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        </FrameLayout>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/password_show"
+                    android:layout_gravity="end|center"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:src="@drawable/show" />
 
-        <Button
-            android:background="@drawable/custom_button"
-            app:backgroundTint="@null"
-            android:layout_marginHorizontal="@dimen/_70sdp"
-            android:layout_marginTop="@dimen/_80sdp"
-            android:textSize="@dimen/_20sdp"
-            android:text="Submit"
-            android:layout_below="@+id/main_email"
-            android:id="@+id/main_btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/password_hide"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="34dp"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:src="@drawable/hide" />
+            </FrameLayout>
 
-        <Button
-            android:textSize="@dimen/_15sdp"
-            android:text="Sign Up Here"
-            android:layout_marginHorizontal="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_80sdp"
-            android:layout_below="@id/main_btn_submit"
-            android:id="@+id/main_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-</ScrollView>
-</RelativeLayout>
+            <Button
+                android:background="@drawable/custom_button"
+                app:backgroundTint="@null"
+                android:layout_marginHorizontal="@dimen/_70sdp"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:textSize="@dimen/_20sdp"
+                android:text="Submit"
+                android:id="@+id/main_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:textSize="@dimen/_15sdp"
+                android:text="Sign Up Here"
+                android:layout_marginHorizontal="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:id="@+id/main_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
