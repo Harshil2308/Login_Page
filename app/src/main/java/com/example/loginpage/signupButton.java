@@ -29,6 +29,7 @@ public class signupButton extends AppCompatActivity {
     SQLiteDatabase db;
     EditText name,email,contact,password,confirm_password;
     SharedPreferences sp;
+    Button signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class signupButton extends AppCompatActivity {
         setContentView(R.layout.activity_signup_button);
 
         db = openOrCreateDatabase("signuppage.db", MODE_PRIVATE, null);
+        sp = getSharedPreferences(ConstantSp.PREF, MODE_PRIVATE);
 
         String tableQuery = "CREATE TABLE IF NOT EXISTS USERS(NAME VARCHAR(20), MOBILE BIGINT(10), EMAIL VARCHAR(20), PASSWORD VARCHAR(10), GENDER VARCHAR(10))";
         db.execSQL(tableQuery);
@@ -46,7 +48,7 @@ public class signupButton extends AppCompatActivity {
         contact = findViewById(R.id.signup_contactno);
         password = findViewById(R.id.signup_password);
         confirm_password = findViewById(R.id.signup_confirm_password);
-        Button signup = findViewById(R.id.signup_button);
+        signup = findViewById(R.id.signup_button);
 
         gender = findViewById(R.id.signup_radio_group);
         termscheckbox = findViewById(R.id.signup_checkbox);
