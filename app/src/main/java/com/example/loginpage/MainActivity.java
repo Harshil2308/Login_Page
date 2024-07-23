@@ -1,6 +1,9 @@
 package com.example.loginpage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -16,7 +19,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    SQLiteDatabase db;
     ImageView show,hide;
+    Button loginButton,RegisterButton;
+    EditText email,password;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +31,14 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Button loginButton = findViewById(R.id.main_btn_submit);
-        Button RegisterButton = findViewById(R.id.main_signup);
-        EditText email = findViewById(R.id.main_email);
-        EditText password = findViewById(R.id.main_password);
+        db = openOrCreateDatabase("signuppage.db",MODE_PRIVATE, null);
+
+        sp = getSharedPreferences(ConstantSp.PREF,MODE_PRIVATE);
+
+        loginButton = findViewById(R.id.main_btn_submit);
+        RegisterButton = findViewById(R.id.main_signup);
+        email = findViewById(R.id.main_email);
+        password = findViewById(R.id.main_password);
 
         show = findViewById(R.id.password_show);
         hide = findViewById(R.id.password_hide);
@@ -63,10 +74,30 @@ public class MainActivity extends AppCompatActivity {
                 } else if (password.getText().toString().trim().length() < 6) {
                     password.setError(("Password is too small"));
                 } else {
-                    Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                    String check_user = "SELECT * FROM USERS WHERE EMAIL = '"+email.getText().toString()+"' AND PASSWORD = '"+password.getText().toString()+"'";
+                    Cursor cursor = db.rawQuery(check_user, null);
+                    if (cursor.getCount() > 0) {
+                        Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                        startActivity(intent);
 
-                    Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                    startActivity(intent);
+                        while (cursor.moveToNext()){
+                            String sName = cursor.getString(0);
+                            String sContact = cursor.getString(1);
+                            String sEmail = cursor.getString(2);
+                            String sPassword = cursor.getString(3);
+                            String sGender = cursor.getString(4);
+
+                            sp.edit().putString(ConstantSp.NAME,sName).commit();
+                            sp.edit().putString(ConstantSp.CONTACT,sContact).commit();
+                            sp.edit().putString(ConstantSp.EMAIL,sEmail).commit();
+                            sp.edit().putString(ConstantSp.PASSWORD,sPassword).commit();
+                            sp.edit().putString(ConstantSp.GENDER,sGender).commit();
+                        }
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Wrong Email Id/Password", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

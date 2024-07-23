@@ -1,9 +1,12 @@
 package com.example.loginpage;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,7 +24,11 @@ public class signupButton extends AppCompatActivity {
     ImageView signup_show,signup_hide;
     ImageView signup_confirm_show,signup_confirm_hide;
     RadioGroup gender;
+    String sGender;
     CheckBox termscheckbox;
+    SQLiteDatabase db;
+    EditText name,email,contact,password,confirm_password;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +36,16 @@ public class signupButton extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup_button);
 
-        EditText name = findViewById(R.id.signup_name);
-        EditText email = findViewById(R.id.signup_email);
-        EditText contact = findViewById(R.id.signup_contactno);
-        EditText password = findViewById(R.id.signup_password);
-        EditText confirm_password = findViewById(R.id.signup_confirm_password);
+        db = openOrCreateDatabase("signuppage.db", MODE_PRIVATE, null);
+
+        String tableQuery = "CREATE TABLE IF NOT EXISTS USERS(NAME VARCHAR(20), MOBILE BIGINT(10), EMAIL VARCHAR(20), PASSWORD VARCHAR(10), GENDER VARCHAR(10))";
+        db.execSQL(tableQuery);
+
+        name = findViewById(R.id.signup_name);
+        email = findViewById(R.id.signup_email);
+        contact = findViewById(R.id.signup_contactno);
+        password = findViewById(R.id.signup_password);
+        confirm_password = findViewById(R.id.signup_confirm_password);
         Button signup = findViewById(R.id.signup_button);
 
         gender = findViewById(R.id.signup_radio_group);
@@ -44,6 +56,15 @@ public class signupButton extends AppCompatActivity {
 
         signup_confirm_show = findViewById(R.id.signup_confirm_password_show);
         signup_confirm_hide = findViewById(R.id.signup_confirm_password_hide);
+
+        email.setText(sp.getString(ConstantSp.EMAIL,""));
+        password.setText(sp.getString(ConstantSp.PASSWORD,""));
+
+        Log.d("DATA",sp.getString(ConstantSp.GENDER,"")+"\n"+
+                sp.getString(ConstantSp.PASSWORD,"")+"\n"+
+                sp.getString(ConstantSp.CONTACT,"")+"\n"+
+                sp.getString(ConstantSp.NAME,"")+"\n"+
+                sp.getString(ConstantSp.EMAIL,""));
 
         signup_show.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +103,8 @@ public class signupButton extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton selectedGender = findViewById(i);
-                Toast.makeText(signupButton.this, selectedGender.getText(), Toast.LENGTH_LONG).show();
+                sGender = selectedGender.getText().toString();
+                Toast.makeText(signupButton.this, sGender, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -114,8 +136,20 @@ public class signupButton extends AppCompatActivity {
                 } else if (!termscheckbox.isChecked()) {
                     Toast.makeText(signupButton.this, "Terms & Conditions are required", Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(signupButton.this, MainActivity.class);
-                    startActivity(intent);
+                    String exist_check = "SELECT * FROM USERS WHERE EMAIL = '"+email.getText().toString()+"' or MOBILE = '"+contact.getText().toString()+"'";
+                    Cursor cursor = db.rawQuery(exist_check, null);
+
+                    if (cursor.getCount() > 0) {
+                        Toast.makeText(signupButton.this, "This user is already exists", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(signupButton.this, "Sign Up Successfully!", Toast.LENGTH_LONG).show();
+
+                        String insertQuery = "INSERT INTO USERS VALUES('"+name.getText().toString()+"','"+contact.getText().toString()+"','"+email.getText().toString()+"','"+password.getText().toString()+"','"+sGender+"')";
+                        db.execSQL(insertQuery);
+                        Intent intent = new Intent(signupButton.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
