@@ -1,6 +1,7 @@
 package com.example.loginpage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class SplashActivity extends AppCompatActivity {
 
     ImageView splash;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +25,18 @@ public class SplashActivity extends AppCompatActivity {
 
         splash = findViewById(R.id.splash_image);
 
+        sp = getSharedPreferences(ConstantSp.PREF,MODE_PRIVATE);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (sp.getString(ConstantSp.EMAIL,"").equals("")){
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity2.class);
+                    startActivity(intent);
+                }
             }
         },2000);
     }
